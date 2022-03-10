@@ -1,15 +1,13 @@
 {
   "name": "simple-node-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "script.ts",
   "type": "module",
   "scripts": {
     "tsc": "tsc",
     "start": "tsc-transpile-only && node dist/script.js"
   },
   "author": "stephen@stephenkelzer.com",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "dependencies": {
     "node-fetch": "3.2.2"
   },

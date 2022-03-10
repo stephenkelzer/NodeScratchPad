@@ -1,10 +1,5 @@
 import fetch from "node-fetch";
-
-interface AstroResponse {
-  people: Array<{ craft: string; name: string }>;
-  message: string;
-  number: number;
-}
+import { IAstroResponse } from "./constants";
 
 fetch("http://api.open-notify.org/astros.json")
   .then((r) => {
@@ -14,6 +9,6 @@ fetch("http://api.open-notify.org/astros.json")
     return r;
   })
   .then((x) => x.json())
-  .then((results: AstroResponse) => {
+  .then((results: IAstroResponse) => {
     console.log(results);
   });
