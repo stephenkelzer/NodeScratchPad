@@ -4,15 +4,17 @@
   "scripts": {
     "tsc": "tsc",
     "lint": "npx eslint src/**",
-    "start": "npx ts-node src/script.ts"
+    "serve": "npx ts-node src/server.ts"
   },
   "author": "stephen@stephenkelzer.com",
   "license": "UNLICENSED",
   "dependencies": {
     "axios": "0.26.1",
+    "express": "4.17.3",
     "lodash": "4.17.21"
   },
   "devDependencies": {
+    "@types/express": "4.17.13",
     "@types/lodash": "4.14.179",
     "@types/node": "17.0.21",
     "@typescript-eslint/eslint-plugin": "5.14.0",
