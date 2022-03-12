@@ -8,6 +8,8 @@ Run Steps:
 
 
 
-Typescript Compile Steps:
+Other Commands:
 
-`yarn tsc`
+`yarn tsc` (Validate Typescript)
+
+`yarn lint` (Validate Syntax Styling)
