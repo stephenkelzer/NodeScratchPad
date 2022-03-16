@@ -1,0 +1,50 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Clear Terminal",
+      "type": "shell",
+      "command": "clear",
+      "presentation": {
+        "echo": false,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false
+      },
+      "options": {
+        "statusbar": { "hide": true }
+      }
+    },
+
+    {
+      "label": "Execute",
+      "type": "npm",
+      "script": "start",
+      "dependsOn": ["Clear Terminal"],
+      "options": {
+        "statusbar": { "label": "$(run) Execute Script" }
+      }
+    },
+
+    {
+      "label": "TypeScript Check",
+      "type": "npm",
+      "script": "tsc",
+      "dependsOn": ["Clear Terminal"],
+      "options": {
+        "statusbar": { "label": "$(verified) tsc" }
+      }
+    },
+
+    {
+      "label": "Lint",
+      "type": "npm",
+      "script": "lint",
+      "dependsOn": ["Clear Terminal"],
+      "options": {
+        "statusbar": { "label": "$(verified) lint" }
+      }
+    }
+  ]
+}
