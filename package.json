@@ -4,7 +4,7 @@
   "scripts": {
     "tsc": "tsc",
     "lint": "npx eslint src/**",
-    "start": "npx ts-node src/script.ts"
+    "start": "npx ts-node --transpileOnly src/script.ts"
   },
   "author": "stephen@stephenkelzer.com",
   "license": "UNLICENSED",

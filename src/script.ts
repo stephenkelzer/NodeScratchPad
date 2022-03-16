@@ -6,10 +6,9 @@ import orderBy from 'lodash/orderBy'
 axios
   .get<IAstroResponse>('http://api.open-notify.org/astros.json')
   .then(({ data }) => {
-    
     // sort collection
     data.people = orderBy(data.people, 'craft')
-    
+
     // get max length for each column
     let nameMaxLength = 0
     let craftMaxLength = 0
@@ -24,7 +23,7 @@ axios
 
     // print header
     console.log(`There are ${data.people.length} people in space right now:\n`)
-    
+
     // print table header
     console.log(`${padRight('Name', nameMaxLength, ' ')} | ${'Craft'}`)
 
