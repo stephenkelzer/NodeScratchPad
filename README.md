@@ -1,4 +1,6 @@
 # NodeScratchPad
+A simple app for quickly scripting in Typescript. No frills, no thrills!
+
 
 Run Steps:
 
