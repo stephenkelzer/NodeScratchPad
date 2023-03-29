@@ -2,14 +2,14 @@
 
 Run Steps:
 
-`yarn install`
+`npm i`
 
-`yarn start`
+`npm start`
 
 
 
 Other Commands:
 
-`yarn tsc` (Validate Typescript)
+`npm run tsc` (Validate Typescript)
 
-`yarn lint` (Validate Syntax Styling)
+`npm run lint` (Validate Syntax Styling)
