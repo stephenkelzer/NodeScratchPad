@@ -3,5 +3,8 @@
   "testEnvironment": "node",
   "moduleFileExtensions": ["js", "json", "ts"],
   "rootDir": "src",
-  "testRegex": ".spec.ts$"
+  "verbose": true,
+  "testRegex": ".spec.ts$",
+  "collectCoverage": true,
+  "coverageDirectory": "../coverage"
 }

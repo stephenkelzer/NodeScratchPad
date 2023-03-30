@@ -28,7 +28,7 @@ export class BreadthFirstSearch {
     return false
   }
 
-  connectedComponentsCount = (graph: AdjacencyList): number => {
+  componentsCount = (graph: AdjacencyList): number => {
     const visited = new Set<string>()
     let count = 0
 

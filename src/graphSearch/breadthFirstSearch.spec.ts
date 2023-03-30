@@ -1,133 +1,95 @@
-import { AdjacencyList, EdgeList } from '../types'
 import { BreadthFirstSearch } from './breadthFirstSearch'
 import { buildGraph } from './buildGraph'
 
-const nonCircularSingleComponentEdges: EdgeList = [
-  ['a', 'b'],
-  ['b', 'c'],
-  ['b', 'e'],
-  ['c', 'd'],
-  ['e', 'f'],
-]
-
-const nonCircularTwoComponentEdges: EdgeList = [
-  ['a', 'b'],
-  ['b', 'c'],
-  ['b', 'e'],
-  ['c', 'd'],
-  ['e', 'f'],
-  ['x', 'y'],
-  ['y', 'z'],
-]
-
-const circularSingleComponentEdges: EdgeList = [
-  ['a', 'b'],
-  ['b', 'c'],
-  ['a', 'c'],
-]
-
-const circularTwoComponentEdges: EdgeList = [
-  ['a', 'b'],
-  ['b', 'c'],
-  ['b', 'e'],
-  ['c', 'd'],
-  ['e', 'f'],
-  ['x', 'y'],
-  ['y', 'z'],
-  ['x', 'z'],
-]
-
-const nonCircularSingleComponentGraph = buildGraph(nonCircularSingleComponentEdges)
-const nonCircularTwoComponentGraph = buildGraph(nonCircularTwoComponentEdges)
-const circularSingleComponentGraph = buildGraph(circularSingleComponentEdges)
-const circularTwoComponentGraph = buildGraph(circularTwoComponentEdges)
-
-describe('breadthFirst', () => {
+describe('BreadthFirstSearch', () => {
   const breadthFirstSearch = new BreadthFirstSearch()
 
   describe('hasPath', () => {
-    test.each([
-      ...nonCircularSingleComponentEdges.map<[AdjacencyList, string, string]>((edge) => [
-        nonCircularSingleComponentGraph,
-        edge[0],
-        edge[1],
-      ]),
-      ...circularSingleComponentEdges.map<[AdjacencyList, string, string]>((edge) => [
-        circularSingleComponentGraph,
-        edge[0],
-        edge[1],
-      ]),
-      ...nonCircularTwoComponentEdges.map<[AdjacencyList, string, string]>((edge) => [
-        nonCircularTwoComponentGraph,
-        edge[0],
-        edge[1],
-      ]),
-      ...circularTwoComponentEdges.map<[AdjacencyList, string, string]>((edge) => [
-        circularTwoComponentGraph,
-        edge[0],
-        edge[1],
-      ]),
-    ])('expect a valid path', (graph, startNode, endNode) => {
-      expect(breadthFirstSearch.hasPath(graph, startNode, endNode)).toBe(true)
+    it('finds a path when one exists', () => {
+      const graph = buildGraph([
+        ['a', 'b'],
+        ['b', 'c'],
+        ['c', 'd'],
+      ])
+      expect(breadthFirstSearch.hasPath(graph, 'a', 'd')).toBe(true)
     })
 
-    test.each([
-      [nonCircularTwoComponentGraph, 'a', 'x'],
-      [nonCircularTwoComponentGraph, 'b', 'x'],
-      [nonCircularTwoComponentGraph, 'c', 'x'],
-      [nonCircularTwoComponentGraph, 'd', 'x'],
-      [nonCircularTwoComponentGraph, 'e', 'x'],
-      [nonCircularTwoComponentGraph, 'f', 'x'],
-      [nonCircularTwoComponentGraph, 'a', 'y'],
-      [nonCircularTwoComponentGraph, 'b', 'y'],
-      [nonCircularTwoComponentGraph, 'c', 'y'],
-      [nonCircularTwoComponentGraph, 'd', 'y'],
-      [nonCircularTwoComponentGraph, 'e', 'y'],
-      [nonCircularTwoComponentGraph, 'f', 'y'],
-      [nonCircularTwoComponentGraph, 'a', 'z'],
-      [nonCircularTwoComponentGraph, 'b', 'z'],
-      [nonCircularTwoComponentGraph, 'c', 'z'],
-      [nonCircularTwoComponentGraph, 'd', 'z'],
-      [nonCircularTwoComponentGraph, 'e', 'z'],
-      [nonCircularTwoComponentGraph, 'f', 'z'],
-      [circularTwoComponentGraph, 'a', 'x'],
-      [circularTwoComponentGraph, 'b', 'x'],
-      [circularTwoComponentGraph, 'c', 'x'],
-      [circularTwoComponentGraph, 'd', 'x'],
-      [circularTwoComponentGraph, 'e', 'x'],
-      [circularTwoComponentGraph, 'f', 'x'],
-      [circularTwoComponentGraph, 'a', 'y'],
-      [circularTwoComponentGraph, 'b', 'y'],
-      [circularTwoComponentGraph, 'c', 'y'],
-      [circularTwoComponentGraph, 'd', 'y'],
-      [circularTwoComponentGraph, 'e', 'y'],
-      [circularTwoComponentGraph, 'f', 'y'],
-      [circularTwoComponentGraph, 'a', 'z'],
-      [circularTwoComponentGraph, 'b', 'z'],
-      [circularTwoComponentGraph, 'c', 'z'],
-      [circularTwoComponentGraph, 'd', 'z'],
-      [circularTwoComponentGraph, 'e', 'z'],
-      [circularTwoComponentGraph, 'f', 'z'],
-    ])('expect no path found', (graph, startNode, endNode) => {
-      expect(breadthFirstSearch.hasPath(graph, startNode, endNode)).toBe(false)
+    it("doesn't find a path when one doesn't exists", () => {
+      const graph = buildGraph([
+        ['a', 'b'],
+        ['c', 'd'],
+      ])
+      expect(breadthFirstSearch.hasPath(graph, 'a', 'd')).toBe(false)
+    })
+
+    it('finds a path in a circular graph successfully', () => {
+      const graph = buildGraph([
+        ['a', 'b'],
+        ['b', 'c'],
+        ['c', 'a'],
+      ])
+      expect(breadthFirstSearch.hasPath(graph, 'a', 'c')).toBe(true)
     })
   })
 
-  describe('connectedComponentsCount', () => {
-    it('expect 1 connected component', () => {
-      expect(breadthFirstSearch.connectedComponentsCount(nonCircularSingleComponentGraph)).toBe(1)
+  describe('componentsCount', () => {
+    it('handles empty graph ', () => {
+      const graph = buildGraph([])
+      expect(breadthFirstSearch.componentsCount(graph)).toBe(0)
     })
 
-    it('expect 2 connected components', () => {
-      expect(breadthFirstSearch.connectedComponentsCount(nonCircularTwoComponentGraph)).toBe(2)
+    it('counts successfully', () => {
+      const graph = buildGraph([
+        ['a', 'b'],
+        ['b', 'c'],
+        ['r', 's'],
+        ['x', 'y'],
+        ['y', 'z'],
+      ])
+      expect(breadthFirstSearch.componentsCount(graph)).toBe(3)
     })
 
-    it('expect 1 connected component', () => {
-      expect(breadthFirstSearch.connectedComponentsCount(circularSingleComponentGraph)).toBe(1)
+    it('counts successfully in circular graph', () => {
+      const graph = buildGraph([
+        ['a', 'b'],
+        ['b', 'c'],
+        ['r', 's'],
+        ['x', 'y'],
+        ['y', 'z'],
+        ['z', 'x'],
+      ])
+      expect(breadthFirstSearch.componentsCount(graph)).toBe(3)
+    })
+  })
+
+  describe('largestComponentSize', () => {
+    it('handles empty graph', () => {
+      const graph = buildGraph([])
+      expect(breadthFirstSearch.largestComponentSize(graph)).toBe(0)
     })
 
-    it('expect 2 connected components', () => {
-      expect(breadthFirstSearch.connectedComponentsCount(circularTwoComponentGraph)).toBe(2)
+    it('finds largest component', () => {
+      const graph = buildGraph([
+        ['a', 'b'],
+        ['b', 'c'],
+        ['r', 's'],
+        ['w', 'x'],
+        ['x', 'y'],
+        ['y', 'z'],
+      ])
+      expect(breadthFirstSearch.largestComponentSize(graph)).toBe(4)
+    })
+
+    it('counts successfully in circular graph', () => {
+      const graph = buildGraph([
+        ['a', 'b'],
+        ['b', 'c'],
+        ['r', 's'],
+        ['x', 'y'],
+        ['y', 'z'],
+        ['z', 'x'],
+      ])
+      expect(breadthFirstSearch.largestComponentSize(graph)).toBe(3)
     })
   })
 })

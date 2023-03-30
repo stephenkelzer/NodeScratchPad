@@ -8,7 +8,7 @@ import { AdjacencyList } from '../types'
     Always add to END of stack, always remove from END of stack.
 */
 export class DepthFirstSearch {
-  static hasPath(graph: AdjacencyList, current: string, end: string): boolean {
+  hasPath(graph: AdjacencyList, current: string, end: string): boolean {
     const stack = [current]
     const visited = new Set<string>()
 
@@ -27,7 +27,7 @@ export class DepthFirstSearch {
     return false
   }
 
-  static hasPathRecursive(graph: AdjacencyList, current: string, end: string, visited = new Set<string>()): boolean {
+  hasPathRecursive(graph: AdjacencyList, current: string, end: string, visited = new Set<string>()): boolean {
     if (current === end) return true
 
     if (visited.has(current)) return false
@@ -42,7 +42,7 @@ export class DepthFirstSearch {
     return false
   }
 
-  static connectedComponentsCount(graph: AdjacencyList): number {
+  componentsCount(graph: AdjacencyList): number {
     const visited = new Set<string>()
 
     const explore = (node: string): boolean => {
@@ -66,7 +66,7 @@ export class DepthFirstSearch {
     return count
   }
 
-  static largestComponentSize(graph: AdjacencyList): number {
+  largestComponentSize(graph: AdjacencyList): number {
     const visited = new Set<string>()
 
     const discoverSize = (node: string): number => {
@@ -91,7 +91,7 @@ export class DepthFirstSearch {
     return largest
   }
 
-  static smallestComponentSize(graph: AdjacencyList): number {
+  smallestComponentSize(graph: AdjacencyList): number {
     const visited = new Set<string>()
 
     const discoverSize = (node: string): number => {
