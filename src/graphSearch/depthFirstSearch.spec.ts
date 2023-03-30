@@ -30,6 +30,15 @@ describe('DepththFirstSearch', () => {
       ])
       expect(depthFirstSearch.hasPath(graph, 'a', 'c')).toBe(true)
     })
+
+    it('fails cleanly when destination does not exist', () => {
+      const graph = buildGraph([
+        ['a', 'b'],
+        ['b', 'c'],
+        ['c', 'a'],
+      ])
+      expect(depthFirstSearch.hasPath(graph, 'a', 'z')).toBe(false)
+    })
   })
 
   describe('hasPathRecursive', () => {
