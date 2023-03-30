@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
-    "target": "ES2022",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "noEmit": true,
     "noImplicitAny": true,
