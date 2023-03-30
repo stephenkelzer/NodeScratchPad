@@ -1,25 +1,33 @@
 import { AdjacencyList } from '../types'
 
-export const depthFirstHasPath = (graph: AdjacencyList, current: string, end: string): boolean => {
+/* DEPTH FIRST SEARCH
+
+    Depth first search is a graph traversal algorithm that explores as far as possible along each branch before backtracking.
+
+    Can easily be implemented with a stack or a recursive function.
+    Always add to END of stack, always remove from END of stack.
+*/
+
+export const hasPath = (graph: AdjacencyList, current: string, end: string): boolean => {
   const stack = [current]
   const visited = new Set<string>()
 
   while (stack.length > 0) {
-    const current = stack.pop()! // important, always remove from END of queue
+    const current = stack.pop()! // important, always remove from END of stack
 
     if (current === end) return true
     if (visited.has(current)) continue
     visited.add(current)
 
     for (const neighbor of graph[current]) {
-      stack.push(neighbor) // important, always add to END of queue
+      stack.push(neighbor) // important, always add to END of stack
     }
   }
 
   return false
 }
 
-export const recursiveDepthFirstHasPath = (
+export const recursiveHasPath = (
   graph: AdjacencyList,
   current: string,
   end: string,
@@ -31,7 +39,7 @@ export const recursiveDepthFirstHasPath = (
   visited.add(current)
 
   for (const neighbor of graph[current]) {
-    if (recursiveDepthFirstHasPath(graph, neighbor, end, visited)) {
+    if (recursiveHasPath(graph, neighbor, end, visited)) {
       return true
     }
   }
@@ -39,7 +47,7 @@ export const recursiveDepthFirstHasPath = (
   return false
 }
 
-export const depthFirstConnectedComponentsCount = (graph: AdjacencyList): number => {
+export const connectedComponentsCount = (graph: AdjacencyList): number => {
   const visited = new Set<string>()
 
   const explore = (node: string): boolean => {
@@ -61,4 +69,54 @@ export const depthFirstConnectedComponentsCount = (graph: AdjacencyList): number
   }
 
   return count
+}
+
+export const largestComponentSize = (graph: AdjacencyList): number => {
+  const visited = new Set<string>()
+
+  const discoverSize = (node: string): number => {
+    if (visited.has(node)) return 0
+    visited.add(node)
+
+    let size = 1
+
+    for (const neighbor of graph[node]) {
+      size += discoverSize(neighbor)
+    }
+
+    return size
+  }
+
+  let largest = 0
+  for (const node in graph) {
+    const size = discoverSize(node)
+    if (size > largest) largest = size
+  }
+
+  return largest
+}
+
+export const smallestComponentSize = (graph: AdjacencyList): number => {
+  const visited = new Set<string>()
+
+  const discoverSize = (node: string): number => {
+    if (visited.has(node)) return 0
+    visited.add(node)
+
+    let size = 1
+
+    for (const neighbor of graph[node]) {
+      size += discoverSize(neighbor)
+    }
+
+    return size
+  }
+
+  let smallest = Infinity
+  for (const node in graph) {
+    const size = discoverSize(node)
+    if (size > 0 && size < smallest) smallest = size
+  }
+
+  return smallest
 }
