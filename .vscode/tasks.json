@@ -28,6 +28,16 @@
     },
 
     {
+      "label": "Execute",
+      "type": "npm",
+      "script": "test",
+      "dependsOn": ["Clear Terminal"],
+      "options": {
+        "statusbar": { "label": "$(beaker) Run Tests" }
+      }
+    },
+
+    {
       "label": "TypeScript Check",
       "type": "npm",
       "script": "tsc",
