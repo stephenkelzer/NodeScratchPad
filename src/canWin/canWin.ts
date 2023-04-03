@@ -17,6 +17,6 @@ export const canWin = (board: number[], currentIndex: number, memo: Record<numbe
   if (currentValue === undefined) return false
   if (currentValue === 0) return true
 
-  memo[currentIndex] = false
+  memo[currentIndex] = false // set the current location to false to prevent infinite cycles
   return canWin(board, currentIndex - currentValue, memo) || canWin(board, currentIndex + currentValue, memo)
 }
